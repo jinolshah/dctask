@@ -17,6 +17,8 @@ def verifier(event):
         if intChecker(event[1]):
             return "EventRequest"
     elif length == 3:
+        if event[1] not in ["P", "M", "C", "T"]:
+            raise ValueError("Invalid StatusType")
         if intChecker(event[2]):
             return "EventStatus"
 
@@ -54,6 +56,7 @@ for pack in packets:
 # 3.Popping elements from queue till queue is empty
 status = []
 while len(q.queue) > 0:
+    # print(q.queue)
     popped = q.Pop()
     if popped[0] == "S":
         status.append(popped[1])
